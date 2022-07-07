@@ -134,7 +134,7 @@ def normalize_paths(paths, tracker):
 
 class TrackerProcess(object):
 
-    def __init__(self, command: str, envvars=dict(), timeout=30, log=False, socket=False):
+    def __init__(self, command: str, envvars=dict(), timeout=100, log=False, socket=False):
         environment = dict(os.environ)
         environment.update(envvars)
 
@@ -183,7 +183,7 @@ class TrackerProcess(object):
 
         try:
             if socket:
-                self._client = Client(stream=self._socket.fileno(), timeout=30, log=log)
+                self._client = Client(stream=self._socket.fileno(), timeout=100, log=log)
             else:
                 self._client = Client(
                     stream=(self._process.stdin.fileno(), self._process.stdout.fileno()), log=log
@@ -332,7 +332,7 @@ class TrackerProcess(object):
 
 class TraxTrackerRuntime(TrackerRuntime):
 
-    def __init__(self, tracker: Tracker, command: str, log: bool = False, timeout: int = 30, linkpaths=None, envvars=None, arguments=None, socket=False, restart=False, onerror=None):
+    def __init__(self, tracker: Tracker, command: str, log: bool = False, timeout: int = 100, linkpaths=None, envvars=None, arguments=None, socket=False, restart=False, onerror=None):
         super().__init__(tracker)
         self._command = command
         self._process = None
@@ -454,7 +454,7 @@ def escape_path(path):
     else:
         return path
 
-def trax_python_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 30, linkpaths=None, arguments=None, python=None, socket=False, restart=False, **kwargs):
+def trax_python_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 100, linkpaths=None, arguments=None, python=None, socket=False, restart=False, **kwargs):
     if not isinstance(paths, list):
         paths = paths.split(os.pathsep)
 
@@ -474,7 +474,8 @@ def trax_python_adapter(tracker, command, envvars, paths="", log: bool = False, 
 
     return TraxTrackerRuntime(tracker, command, log=log, timeout=timeout, linkpaths=linkpaths, envvars=envvars, arguments=arguments, socket=socket, restart=restart)
 
-def trax_matlab_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 30, linkpaths=None, arguments=None, matlab=None, socket=False, restart=False, **kwargs):
+def trax_matlab_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 
+                        , linkpaths=None, arguments=None, matlab=None, socket=False, restart=False, **kwargs):
     if not isinstance(paths, list):
         paths = paths.split(os.pathsep)
 
