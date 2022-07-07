@@ -474,8 +474,7 @@ def trax_python_adapter(tracker, command, envvars, paths="", log: bool = False, 
 
     return TraxTrackerRuntime(tracker, command, log=log, timeout=timeout, linkpaths=linkpaths, envvars=envvars, arguments=arguments, socket=socket, restart=restart)
 
-def trax_matlab_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 
-                        , linkpaths=None, arguments=None, matlab=None, socket=False, restart=False, **kwargs):
+def trax_matlab_adapter(tracker, command, envvars, paths="", log: bool = False, timeout: int = 30, linkpaths=None, arguments=None, matlab=None, socket=False, restart=False, **kwargs):
     if not isinstance(paths, list):
         paths = paths.split(os.pathsep)
 
